@@ -1,0 +1,7 @@
+{
+	"name": "codaxis/cakephp-mailgun",
+	"type": "cakephp-plugin",
+	"extra": {
+		"installer-name": "Mailgun"
+	}
+}
