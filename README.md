@@ -2,7 +2,7 @@
 
 Allows sending emails via Mailgun by using the provided SDK.
 
-## Installation via composer
+## Installation
 
 * Clone or copy the files into `app/Plugin/Mailgun`
 * Include the plugin in your bootstrap's `CakePlugin::load()` or use `CakePlugin::loadAll()`
