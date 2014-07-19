@@ -22,7 +22,7 @@ class MailgunTransport extends AbstractTransport {
  *
  * @var array
  */
-	protected $_config = array();
+    protected $_config = array();
 
 /**
  * Email header to Mailgun param mapping
@@ -75,9 +75,10 @@ class MailgunTransport extends AbstractTransport {
  *
  * @param CakeEmail $email
  * @return array
+ * @throws Exception
  */
-	public function send(CakeEmail $email) {
-		$mgClient = new Mailgun($this->_config['mg_api_key']);
+    public function send(CakeEmail $email) {
+        $mgClient = new Mailgun($this->_config['mg_api_key']);
 
         $headersList = array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc', 'subject');
         $params = [];
@@ -93,17 +94,17 @@ class MailgunTransport extends AbstractTransport {
 
         $attachments = array();
         foreach ($email->attachments() as $name => $info) {
-        	$attachments['attachment'][] = '@' . $info['file'];
+            $attachments['attachment'][] = '@' . $info['file'];
         }
 
-		try {
-			$result = $mgClient->sendMessage($this->_config['mg_domain'], $params, $attachments);
-			if ($result->http_response_code != 200) {
-				throw new Exception($result->http_response_body->message);
-			}
-		} catch (Exception $e) {
-			throw $e;
-		}
+        try {
+            $result = $mgClient->sendMessage($this->_config['mg_domain'], $params, $attachments);
+            if ($result->http_response_code != 200) {
+                throw new Exception($result->http_response_body->message);
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
 
         return $result;
     }
