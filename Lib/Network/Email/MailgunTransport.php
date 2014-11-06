@@ -78,6 +78,10 @@ class MailgunTransport extends AbstractTransport {
  * @throws Exception
  */
     public function send(CakeEmail $email) {
+        if (Configure::read('Mailgun.preventManyToRecipients') !== false && count($email->to()) > 1) {
+            throw new Exception('More than one "to" recipient not allowed (set Mailgun.preventManyToRecipients = false to disable check)');
+        }
+
         $mgClient = new Mailgun($this->_config['mg_api_key']);
 
         $headersList = array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc', 'subject');
